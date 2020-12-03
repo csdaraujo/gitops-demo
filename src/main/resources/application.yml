@@ -1,0 +1,5 @@
+spring.application.name: "Demo API"
+server:
+  error:
+    include-stacktrace: never
+    whitelabel.enabled: false
