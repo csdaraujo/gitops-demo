@@ -10,3 +10,6 @@ indent_size = 4
 indent_style = space
 indent_size = 2
 
+[*.tf]
+indent_style = space
+indent_size = 2
