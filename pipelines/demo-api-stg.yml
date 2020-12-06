@@ -1,0 +1,30 @@
+name: "demo-api staging pipeline"
+
+trigger:
+  branches:
+    include:
+      - main
+    exclude:
+      - '*'
+  paths:
+    include:
+      - /src
+      - /Dockerfile
+      - /*.kts
+    exclude:
+      - '*'
+
+pr: none # to only trigger on pushes/commits, not on PRs
+
+stages:
+  - stage: CI
+    displayName: 'Test'
+    jobs:
+      - template: '/pipelines/demo-api-ci-template.yml'
+
+  - stage: CD
+    displayName: 'Deploy to stg'
+    jobs:
+      - template: '/pipelines/demo-api-cd-template.yml'
+        parameters:
+          environmentId: 'stg'

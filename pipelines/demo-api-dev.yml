@@ -1,0 +1,29 @@
+name: "demo-api development pipeline"
+
+pr:
+  branches:
+    exclude:
+      - main
+      - production
+  paths:
+    include:
+      - /src
+      - /Dockerfile
+      - /*.kts
+    exclude:
+      - '*'
+
+trigger: none # to only trigger on PRs, not on push
+
+stages:
+  - stage: CI
+    displayName: 'Test'
+    jobs:
+      - template: '/pipelines/demo-api-ci-template.yml'
+
+  - stage: CD
+    displayName: 'Deploy to dev'
+    jobs:
+      - template: '/pipelines/demo-api-cd-template.yml'
+        parameters:
+          environmentId: 'dev'

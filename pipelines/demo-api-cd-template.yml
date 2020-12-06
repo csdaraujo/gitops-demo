@@ -1,0 +1,47 @@
+parameters:
+  - name: environmentId
+    type: string
+
+jobs:
+  - job: Deploy
+    displayName: 'Deploy to ${{ parameters.environmentId }}'
+    variables:
+      - name: COMMIT_ID
+        value: $(Build.SourceVersion)
+    steps:
+      - script: |
+          VERSION="$(awk -F "\""  '/^version\ ?=/{print $2}' build.gradle.kts)"
+          if [[ "$VERSION" == "" ]]; then
+            echo "App version on build.gradle.kts was not found!";
+            exit -1
+          fi
+          echo "##vso[task.setvariable variable=tag]$VERSION"
+        condition: or(in(variables['Build.SourceBranchName'], 'main', 'production'), startsWith(variables['Build.SourceBranchName'], 'hotfix'))
+        displayName: 'Get version tag if not development branch'
+
+      - script: 'echo "##vso[task.setvariable variable=tag]${COMMIT_ID::7}"'
+        condition: and(not(failed()), eq(variables['tag'], ''))
+        displayName: 'Get commit tag if development branch'
+
+      - task: Docker@2
+        displayName: Build, tag and push
+        condition: and(not(failed()), ne(variables['Build.SourceBranchName'], 'production'))
+        inputs:
+          command: buildAndPush
+          containerRegistry: acrgitopsdemo
+          repository:  demo-api
+          tags: |
+            $(tag)
+
+      - task: AzureCLI@2
+        displayName: Update app
+        inputs:
+          azureSubscription: arm-csdaraujo
+          scriptType: bash
+          scriptLocation: inlineScript
+          arguments: >
+            -g rg-${{ parameters.environmentId }}-gitops-demo
+            -n app-${{ parameters.environmentId }}-gitops-demo
+            -c acrgitopsdemo.azurecr.io/demo-api:$(tag)
+          inlineScript: |
+            az webapp config container set $@

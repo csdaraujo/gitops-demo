@@ -1,0 +1,34 @@
+jobs:
+  - job: Test
+    steps:
+      - task: DockerCompose@0
+        displayName: Build tests
+        inputs:
+          detached: false
+          dockerComposeFile: 'docker-compose.yml'
+          dockerComposeCommand: 'build tests'
+
+      - task: DockerCompose@0
+        displayName: Run tests
+        inputs:
+          detached: false
+          dockerComposeFile: 'docker-compose.yml'
+          dockerComposeCommand: 'run tests'
+
+      - script: |
+          sudo chmod 777 -R $(Build.SourcesDirectory)/build/
+        displayName: 'Fix build directory permissions'
+
+      - task: PublishTestResults@1
+        displayName: Publish test results
+        inputs:
+          codeCoverageTool: 'JUnit'
+          summaryFileLocation: '**/TEST-*.xml'
+          reportDirectory: './build/reports/tests/test'
+
+      - task: PublishCodeCoverageResults@1
+        displayName: Publish test coverage
+        inputs:
+          codeCoverageTool: 'JaCoCo'
+          summaryFileLocation: '**/jacocoTestReport.xml'
+          reportDirectory: './build/reports/jacoco/test/html/'
