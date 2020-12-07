@@ -1,0 +1,27 @@
+name: "demo-api production pipeline"
+
+trigger:
+  branches:
+    include:
+      - production
+    exclude:
+      - '*'
+  paths:
+    include:
+      - /src
+      - /Dockerfile
+      - /*.kts
+      - /pipelines/demo-api-prd.yml
+      - /pipelines/templates/demo-api-*.yml
+    exclude:
+      - '*'
+
+pr: none # to only trigger on pushes/commits, not on PRs
+
+stages:
+  - stage: CD
+    displayName: 'Deploy to prd'
+    jobs:
+      - template: '/pipelines/templates/demo-api-cd-template.yml'
+        parameters:
+          environmentId: 'prd'

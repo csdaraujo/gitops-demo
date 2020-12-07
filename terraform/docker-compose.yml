@@ -1,0 +1,35 @@
+version: "3.8"
+
+services:
+  dev:
+    build:
+      context: .
+      args:
+        ENV: dev
+    environment: &environment
+      - ARM_CLIENT_ID
+      - ARM_CLIENT_SECRET
+      - ARM_SUBSCRIPTION_ID
+      - ARM_TENANT_ID
+
+  stg:
+    build:
+      context: .
+      args:
+        ENV: stg
+    environment: *environment
+
+  prd:
+    build:
+      context: .
+      args:
+        ENV: prd
+    environment: *environment
+
+  shared:
+    build:
+      context: .
+      args:
+        ENV: shared
+    environment: *environment
+

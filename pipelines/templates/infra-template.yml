@@ -1,0 +1,33 @@
+parameters:
+  - name: environmentId
+    type: string
+
+stages:
+  - stage: Validate_and_apply
+    displayName: 'Validate and apply Terraform'
+    jobs:
+      - job: Apply
+        displayName: Validate and apply Terraform
+        variables:
+          - group: arm-credentials
+        steps:
+          - task: DockerCompose@0
+            displayName: Build
+            inputs:
+              detached: false
+              dockerComposeFile: 'terraform/docker-compose.yml'
+              dockerComposeCommand: 'build'
+              dockerComposeFileArgs: |
+                ENV=${{ parameters.environmentId }}
+
+          - task: DockerCompose@0
+            displayName: Run
+            inputs:
+              detached: false
+              dockerComposeFile: 'terraform/docker-compose.yml'
+              dockerComposeCommand: 'run ${{ parameters.environmentId }}'
+              dockerComposeFileArgs: |
+                ARM_CLIENT_ID=$(ARM_CLIENT_ID)
+                ARM_CLIENT_SECRET=$(ARM_CLIENT_SECRET)
+                ARM_SUBSCRIPTION_ID=$(ARM_SUBSCRIPTION_ID)
+                ARM_TENANT_ID=$(ARM_TENANT_ID)

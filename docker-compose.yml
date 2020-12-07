@@ -1,0 +1,15 @@
+version: "3.8"
+
+services:
+  tests:
+    build:
+      context: .
+      target: build
+    command: "./gradlew cleanTest test --info"
+    volumes:
+      - "./build:/srv/demo-api/build"
+
+  demo-api:
+    build: .
+    ports:
+      - "8080:8080"

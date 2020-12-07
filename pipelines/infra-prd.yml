@@ -1,0 +1,10 @@
+name: "Production infrastructure pipeline"
+
+# This pipeline must be manually triggered
+pr: none
+trigger: none
+
+stages:
+  - template: '/pipelines/templates/infra-template.yml'
+    parameters:
+      environmentId: 'prd'
