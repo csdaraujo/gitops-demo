@@ -19,11 +19,11 @@ stages:
   - stage: CI
     displayName: 'Test'
     jobs:
-      - template: '/pipelines/demo-api-ci-template.yml'
+      - template: '/pipelines/templates/demo-api-ci-template.yml'
 
   - stage: CD
     displayName: 'Deploy to dev'
     jobs:
-      - template: '/pipelines/demo-api-cd-template.yml'
+      - template: '/pipelines/templates/demo-api-cd-template.yml'
         parameters:
           environmentId: 'dev'

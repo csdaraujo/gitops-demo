@@ -20,6 +20,6 @@ stages:
   - stage: CD
     displayName: 'Deploy to prd'
     jobs:
-      - template: '/pipelines/demo-api-cd-template.yml'
+      - template: '/pipelines/templates/demo-api-cd-template.yml'
         parameters:
           environmentId: 'prd'

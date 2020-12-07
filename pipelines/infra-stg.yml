@@ -5,6 +5,6 @@ pr: none
 trigger: none
 
 stages:
-  - template: '/pipelines/infra-template.yml'
+  - template: '/pipelines/templates/infra-template.yml'
     parameters:
       environmentId: 'stg'
