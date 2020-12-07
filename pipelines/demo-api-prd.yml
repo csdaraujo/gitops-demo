@@ -11,6 +11,8 @@ trigger:
       - /src
       - /Dockerfile
       - /*.kts
+      - /pipelines/demo-api-prd.yml
+      - /pipelines/templates/demo-api-*.yml
     exclude:
       - '*'
 
