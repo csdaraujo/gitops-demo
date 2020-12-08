@@ -1,6 +1,7 @@
 name: "demo-api staging pipeline"
 
 trigger:
+  batch: false
   branches:
     include:
       - main

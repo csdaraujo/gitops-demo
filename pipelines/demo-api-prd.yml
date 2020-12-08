@@ -1,6 +1,7 @@
 name: "demo-api production pipeline"
 
 trigger:
+  batch: false
   branches:
     include:
       - production

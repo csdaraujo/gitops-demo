@@ -1,6 +1,8 @@
 name: "demo-api development pipeline"
 
 pr:
+  autoCancel: false
+  drafts: false
   branches:
     exclude:
       - main
