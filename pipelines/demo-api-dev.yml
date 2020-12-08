@@ -7,11 +7,11 @@ pr:
       - production
   paths:
     include:
-      - /src/*
-      - /Dockerfile
-      - /*.kts
-      - /pipelines/demo-api-dev.yml
-      - /pipelines/templates/demo-api-*.yml
+      - 'src/*'
+      - 'Dockerfile'
+      - '*.kts'
+      - 'pipelines/demo-api-dev.yml'
+      - 'pipelines/templates/demo-api-*.yml'
     exclude:
       - '*'
 
