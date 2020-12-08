@@ -7,7 +7,7 @@ pr:
       - production
   paths:
     include:
-      - /src
+      - /src/*
       - /Dockerfile
       - /*.kts
       - /pipelines/demo-api-dev.yml
