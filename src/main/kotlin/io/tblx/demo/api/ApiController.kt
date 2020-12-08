@@ -10,4 +10,9 @@ class ApiController {
 	fun getHello(@RequestParam("name", required = true) name: String): String {
 		return "Hello, $name!"
 	}
+
+	@GetMapping("/goodbye")
+	fun getGoodbye(@RequestParam("name", required = true) name: String): String {
+		return "Goodbye, $name :("
+	}
 }
