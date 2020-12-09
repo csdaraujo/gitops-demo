@@ -1,23 +1,6 @@
 name: "demo-api production pipeline"
 
-trigger:
-  branches:
-    include:
-      - production
-    exclude:
-      - '*'
-  paths:
-    include:
-      - 'Dockerfile'
-      - 'build.gradle.kts'
-      - 'docker-compose.yml'
-      - 'pipelines/demo-api-dev.yml'
-      - 'pipelines/templates/demo-api-cd-template.yml'
-      - 'settings.gradle.kts'
-      - 'src/'
-    exclude:
-      - '*'
-
+trigger: none
 pr: none
 
 stages:
