@@ -8,11 +8,13 @@ trigger:
   paths:
     include:
       - 'src/'
-      - '*.kts'
+      - 'build.gradle.kts'
+      - 'settings.gradle.kts'
       - 'Dockerfile'
       - 'docker-compose.yml'
       - 'pipelines/demo-api-dev.yml'
-      - 'pipelines/templates/demo-api-*.yml'
+      - 'pipelines/templates/demo-api-cd-template.yml'
+      - 'pipelines/templates/demo-api-ci-template.yml'
     exclude:
       - '*'
 
