@@ -7,12 +7,14 @@ trigger:
       - production
   paths:
     include:
-      - 'src/'
-      - '*.kts'
       - 'Dockerfile'
+      - 'build.gradle.kts'
       - 'docker-compose.yml'
       - 'pipelines/demo-api-dev.yml'
-      - 'pipelines/templates/demo-api-*.yml'
+      - 'pipelines/templates/demo-api-cd-template.yml'
+      - 'pipelines/templates/demo-api-ci-template.yml'
+      - 'settings.gradle.kts'
+      - 'src/'
     exclude:
       - '*'
 
