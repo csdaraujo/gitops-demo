@@ -10,7 +10,7 @@ plugins {
 }
 
 group = "io.tblx.demo"
-version = "0.0.1"
+version = "0.1.1"
 java.sourceCompatibility = JavaVersion.VERSION_11
 
 repositories {

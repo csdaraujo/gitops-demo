@@ -9,7 +9,16 @@ services:
     volumes:
       - "./build:/srv/demo-api/build"
 
-  demo-api:
-    build: .
+  demo-api-jvm:
+    build:
+      context: .
+      target: demo-api-jvm
+    ports:
+      - "8080:8080"
+
+  demo-api-native:
+    build:
+      context: .
+      target: demo-api-native
     ports:
       - "8080:8080"
