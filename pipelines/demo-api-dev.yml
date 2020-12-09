@@ -1,21 +1,22 @@
 name: "demo-api development pipeline"
 
-pr:
+trigger:
   branches:
     exclude:
       - main
       - production
   paths:
     include:
-      - /src
-      - /Dockerfile
-      - /*.kts
-      - /pipelines/demo-api-dev.yml
-      - /pipelines/templates/demo-api-*.yml
+      - 'src/'
+      - '*.kts'
+      - 'Dockerfile'
+      - 'docker-compose.yml'
+      - 'pipelines/demo-api-dev.yml'
+      - 'pipelines/templates/demo-api-*.yml'
     exclude:
       - '*'
 
-trigger: none # to only trigger on PRs, not on push
+pr: none
 
 stages:
   - stage: CI
